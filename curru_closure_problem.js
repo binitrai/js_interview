@@ -1,7 +1,0 @@
-/*
-f(1)(2)(3) // 9
-f(2)(2)(1) // 4
-f(2,2,1) // 4
-f() // 0
-https://www.youtube.com/watch?v=AUN84NApNjo
-*/
