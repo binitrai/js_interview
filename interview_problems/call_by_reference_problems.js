@@ -6,7 +6,7 @@ function doubleArray(arr) {
 }
 
 const a1 = [2,3,4,5];
-const a2 = [3,5,6,7];
+const a2 = doubleArray(a1);
 
 let sum = a1[0] + a2[0];
 console.log(sum) ///?
