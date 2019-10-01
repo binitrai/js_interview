@@ -1,5 +1,19 @@
 //hoisting problems
 /**********************************************************************/
+//Problem -3
+var bar = 1;
+function foo() {  
+	bar = 10;
+	return bar;
+  function bar() {}
+}
+foo();
+console.log(bar);  //?1 
+// You can ask the same question by moving function bar before return. 
+//This will not change the op Also you can define some code in bar body. Op will be still unchanged.
+
+/**********************************************************************/
+
 //Problem -1:
 function foo() {
   console.log(typeof foo);
