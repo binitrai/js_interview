@@ -116,6 +116,28 @@ function a() {
   }
 }
 
+
+/**************        Problem 5     ***********/
+
+
+var a = 4;
+function aa() {
+   console.log(a)  // ? output
+   var a = 5;
+   console.log(a)  // ?output
+}
+aa() //? and why so?
+
+//-------------------------------
+
+var a = 4;
+function aa() {
+   console.log(a)  //?output
+   let a = 5;
+   console.log(a) //?output
+}
+aa() //? and why so?
+
 /**********************************************************************/
 
 /*
