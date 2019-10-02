@@ -140,6 +140,17 @@ aa() //? and why so?
 
 /**********************************************************************/
 
+
+function parent() {
+    var hoisted = "I'm a variable";
+
+    function hoisted() {
+        return "I'm a function";
+    }
+    return hoisted();
+}
+console.log(parent());   //? error hoisted is not a fn
+
 /*
 
 Class declarations :
