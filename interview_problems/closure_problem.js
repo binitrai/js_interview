@@ -11,6 +11,9 @@
     3. In functional programming, closures are frequently used for partial application & currying.
 
     4. callbacks and as parameters to higher-order functions, like map/reduce/filter, that make list processing infinitely more readable.
+    
+    5. With closures we can define a public API for our function and keep everything else private. ***Important
+    
     Read More : https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36
 */
 
