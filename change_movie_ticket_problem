@@ -1,0 +1,134 @@
+/*
+
+The new "Avengers" movie has just been released! There are a lot of people at the cinema box office standing in a huge line. Each of them has a single 100, 50 or 25 dollar bill. An "Avengers" ticket costs 25 dollars.
+
+Vasya is currently working as a clerk. He wants to sell a ticket to every single person in this line.
+
+Can Vasya sell a ticket to every person and give change if he initially has no money and sells the tickets strictly in the order people queue?
+
+Return YES, if Vasya can sell a ticket to every person and give change with the bills he has at hand at that moment. Otherwise return NO.
+
+tickets([25, 25, 50]) // => YES 
+tickets([25, 100]) // => NO. Vasya will not have enough money to give change to 100 dollars
+tickets([25, 25, 50, 50, 100]) // => NO. Vasya will not have the right bills to give 75 dollars of change (you can't make two bills of 25 from one of 50)
+*/
+
+
+
+
+function tickets(queue) {
+  let vasya_acc = 0;
+  const ticket_price = 25;
+
+  const account = {
+    "25"  : 0,
+    "50"  : 0,
+    "100" : 0
+  };
+
+  for (let i = 0; i < queue.length; i++) {
+    //credit vasya account with 25 
+    vasya_acc =  vasya_acc + ticket_price;
+
+
+    let current_bill = queue[i];
+
+    //determine remainig amount in vasya account after returning the bill
+    let remaining_amount = vasya_acc - current_bill;
+    if (remaining_amount < 0) {
+      return "NO";
+
+    } else {
+
+        // determine that if vasya has to return or not
+        if (current_bill == 25) {
+          account[current_bill] += 1;
+        } else if(current_bill == 50){
+            // check if vasya has 1 bill of 25 or not
+            if (account["25"] != 0) {
+              account[current_bill] += 1;
+              account["25"] -= 1;
+            } else {
+              return "NO";
+            }
+        } else if (current_bill == 100) {
+            // vasya has to return 75 ruppe means account should have 
+            // either 3 notes of 25 
+            // or 1 note of 25 and 1 note of 50
+            if (account["50"] >= 1 && account["25"] >= 1) {
+               account["50"] -= 1;
+               account["25"] -= 1;
+            } else if(account["25"] >= 3) {
+              account["25"] -= 3;
+            } else {
+              return "NO";
+            }
+        }
+    }
+  }
+  return "YES";
+}
+
+
+
+
+function tickets(queue) {
+  let vasya_acc = 0;
+  const ticket_price = 25;
+
+  const account = {
+    "25"  : 0,
+    "50"  : 0,
+    "100" : 0
+  };
+
+  const bill_list = Object.keys(account).map(item => +item).sort((a,b) => b - a);
+
+  for (let i = 0; i < queue.length; i++) {
+    //credit vasya account with 25 
+    vasya_acc =  vasya_acc + ticket_price;
+
+
+    let current_bill = queue[i];
+
+    //determine remainig amount in vasya account after returning the bill
+    let remaining_amount = vasya_acc - current_bill;
+    if (remaining_amount < 0) {
+      return "NO";
+
+    } else {
+        // determine that if vasya has to return or not
+        let need_to_return = current_bill - ticket_price;
+        if (need_to_return > 0) {
+          for (let j = 0; j < bill_list.length; j++) {
+            let b =  bill_list[j]
+            if (b <=  need_to_return && account[b] > 0) {
+                while(account[b] >= 1 && need_to_return >= b && need_to_return !==0) {
+                  need_to_return -= b;
+                  account[b] = account[b] - 1;
+                }
+            }
+          }
+        }
+        account[current_bill] += 1;
+
+
+
+        if (need_to_return !== 0) {
+          return "NO";
+        }
+    }
+  }
+  return "YES";
+}
+
+function tickets(peopleInLine){
+  let [c25,c50,c100] = [0,0,0];
+  for(let v of peopleInLine) {
+    if(v===25) c25++;
+    if(v===50) {c50++; c25--;}
+    if(v===100) {c25--; c50>0?c50--:c25-=2;}
+    if(c25<0||c50<0) return 'NO'
+  }
+  return 'YES'
+}
