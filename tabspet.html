@@ -5,21 +5,32 @@
     <title>Pet information</title>
     <script>
         (function() {
+            var IDs = {
+                petNavContainer : "petNavContainer",
+                petImgContainer : "petImgContainer"
+            };
             function init() {
                 document.getElementById("petNavContainer").addEventListener("click", petNavHandeler);
             }
+            function removeClass(nodes, className) {
+                nodes.forEach(node => {
+                    node.querySelectorAll("." + className).forEach(item => item.classList.remove(className));
+                })
+            }
+            function addClass(nodes, className) {
+                nodes.forEach(node => {
+                    node.classList.add(className);
+                })
+            }
             function petNavHandeler(event) {
+                var ACTIVE = "active";
                 var $clickedButton = event.target;
                 if ($clickedButton.tagName !== "BUTTON") {
                     return false;
                 }
                 var $doc = document;
-                var $petNavContainer = $doc.getElementById("petNavContainer");
-                var $petImgContainer = $doc.getElementById("petImgContainer");
-                $petNavContainer.querySelectorAll(".active").forEach(item => item.classList.remove("active"));
-                $petImgContainer.querySelectorAll(".active").forEach(item => item.classList.remove("active"));
-                $clickedButton.classList.add("active");
-                $doc.getElementById($clickedButton.dataset.rel).classList.add("active");
+                removeClass([$doc.getElementById(IDs.petNavContainer), $doc.getElementById(IDs.petImgContainer)], ACTIVE);
+                addClass([$clickedButton, $doc.getElementById($clickedButton.dataset.rel)], ACTIVE);
             }
             document.addEventListener('DOMContentLoaded', (event) => {
                 init()
