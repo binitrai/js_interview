@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pet information</title>
+    <script>
+        (function() {
+            function init() {
+                document.getElementById("petNavContainer").addEventListener("click", petNavHandeler);
+            }
+            function petNavHandeler(event) {
+                var $clickedButton = event.target;
+                if ($clickedButton.tagName !== "BUTTON") {
+                    return false;
+                }
+                var $doc = document;
+                var $petNavContainer = $doc.getElementById("petNavContainer");
+                var $petImgContainer = $doc.getElementById("petImgContainer");
+                $petNavContainer.querySelectorAll(".active").forEach(item => item.classList.remove("active"));
+                $petImgContainer.querySelectorAll(".active").forEach(item => item.classList.remove("active"));
+                $clickedButton.classList.add("active");
+                $doc.getElementById($clickedButton.dataset.rel).classList.add("active");
+            }
+            document.addEventListener('DOMContentLoaded', (event) => {
+                init()
+            })
+        }())
+    </script>    
+    <style>
+        .main {
+            padding :20px;
+        }
+        .pet-img-container .pet-img {
+            display:none;
+        }
+        .pet-img-container .pet-img.active {
+            display:block;
+        }
+        .pet-showcase {
+            text-align: center;
+        }
+        .pet-container {
+            display :flex;
+            justify-content: space-around;
+        }
+        .pet-nav-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .button {
+            width:100px;
+            height:40px;
+            padding:10px;
+            border : 1px solid;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+    </style>
+  </head>
+  <body>
+    <main class="main" role="main">
+        <section class="pet-showcase">
+            <header class="pet-intro-banner" role="banner">
+                <h1>Pet ShowRoom</h1>
+            </header>
+            <section class="pet-container">
+                <section id="petNavContainer" class="pet-nav-container" rol="navigation">
+                    <button class="button active" data-rel="dog">Dog</button>
+                    <button class="button" data-rel="cat"> Cat</button>
+                    <button class="button" data-rel="tiger">Tiger</button>
+                </section>
+                <section id="petImgContainer" class="pet-img-container" role="contentinfo">
+                    <img class="pet-img active" id="dog" src="https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg" alt="dog"/>
+                    <img class="pet-img" id="cat" src="https://cdn.pixabay.com/photo/2016/02/10/16/37/cat-1192026_960_720.jpg" alt="cat"/>
+                    <img class="pet-img" id="tiger" src="https://cdn.pixabay.com/photo/2014/10/23/18/56/tiger-500118_960_720.jpg" alt="tiger"/>
+                </section>
+            </section>
+        </section>
+    </main>
+  </body>
+</html>
