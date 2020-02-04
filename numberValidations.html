@@ -47,7 +47,14 @@ main {
         <form name="inputForm" onsubmit="return false">
             <div class="formRow">
                 <label for="numberInput">Input Number:</label>
-                <input type="text" id="numberInput" name="numberInput" class="input"/>
+                <input 
+                    type="text" 
+                    id="numberInput" 
+                    name="numberInput" 
+                    class="input" 
+                    title="please Input valid chars"
+                    pattern="^[0-9]+(?:-[0-9]+)?(,[0-9]+(?:-[0-9]+)?)*$"
+                    />
             </div>
         </form>
     </section>
@@ -87,6 +94,10 @@ main {
         .forEach(item => item.classList.add("hide"));
         let value = event.target.value;
         if (value == "") {
+            return false;
+        }
+        if (!this.checkValidity()) {
+            this.reportValidity();
             return false;
         }
         let inputArr = parseInput(value);
