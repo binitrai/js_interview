@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<style>
+* {
+    box-sizing: border-box;
+}
+.main-container  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header {
+    background-color: #1D3C78;
+    color :white;
+    text-align: center;
+    padding :1px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px #1D3C78;;
+}
+.row {
+    flex-basis:48%;
+}
+.row:last-child {
+    flex-basis: 100%;
+}
+.row:first-child {
+    margin-top: 0px;
+}
+.main {
+    padding:20px;
+    width:50%;
+    border: 1px solid;
+    border-radius: 5px;
+}
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.submit {
+  width: 100%;
+  background-color: #122f67;
+  color: white;
+  padding: 12px 18px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+
+</style>
+<body>
+    <main class="main-container">
+        <div class="main">
+            <header class="header">
+                <h1>Getting Started Today</h1>
+            </header>
+            <form method="post" action="/sample/" name="signupForm" onsubmit="return submitHandeler(event)">
+                <section class="content">
+                    <div class="row">
+                        <label for="fname">First Name</label>
+                        <input class="input" type="text" id="fname" name="firstname" placeholder="First name" pattern="[A-Za-z]+" title="Only Letters are allowed" required>
+                    </div>
+                    <div class="row">
+                        <label for="lname">Last Name</label>
+                        <input class="input" type="text" id="lname" name="lastname" placeholder="Last Name" pattern="[A-Za-z]+" title="Only Letters are allowed" required>
+                    </div>
+                    <div class="row">
+                        <label for="email">Email</label>
+                        <input class="input" type="email" id="email" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$" required>
+                    </div>   
+                    <div class="row">
+                        <label for="phone">Phone</label>
+                        <input class="input" type="tel" id="phone" name="phone" placeholder="Phone" pattern="[0-9]+" title="Only Numbers are allowed" required>
+                    </div>
+                    <div class="row">
+                        <label for="password">Password</label>
+                        <input class="input" type="password" id="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Allowed at least one number and one uppercase and lowercase letter, and at least 8 characters" required>
+                    </div>
+                    <div class="row">   
+                        <label for="country">Country</label>
+                        <input class="input" type="tel" id="country" name="country" placeholder="Country" pattern="[A-Za-z]+" title="Only Letters are allowed" required>
+                    </div>
+                    <div class="row">
+                        <input type="submit" class="submit" value="Submit">
+                    </div>
+                </section>
+            </form>
+            <span>Click to see the <a href="#">Term & Services</a></span>
+        </div>
+    </main>
+</body>
+<script>
+    function submitHandeler(event) {
+        event.preventDefault();
+        console.log("Form Submissiod prevented");
+    }
+</script>
+</html>
