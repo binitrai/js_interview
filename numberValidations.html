@@ -1,0 +1,153 @@
+
+<style type="text/css">
+ /* Add your css styles here */
+.hide {
+    display:none;
+}
+main {
+    padding :50px;
+}
+.formSection, .message {
+    padding: 10px;
+    border:1 px solid;
+}
+.input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.alreadyExists {
+    margin-bottom: 20px;
+}
+.message {
+    font-size: 14px;
+}
+.formRow label {
+    font-size: 16px;
+}
+.btn {
+    padding :10px;
+}
+
+</style>
+ <!-- Enter your HTML code here -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sample Title</title>
+</head>
+<body>
+<main>
+    <section class="formSection">
+        <form name="inputForm" onsubmit="return false">
+            <div class="formRow">
+                <label for="numberInput">Input Number:</label>
+                <input type="text" id="numberInput" name="numberInput" class="input"/>
+            </div>
+        </form>
+    </section>
+    <section class="message hide" id="message">
+        <div id="alreadyExists" class="hide">
+            <span id="alreadyExistsSpan"></span>
+            <span> already exists</span>
+        </div>
+        <div id="addedInList" class="hide">
+            <span id="addedInListSpan"></span>
+            <span>have been added to the list</span>
+            <button class="btn" id="viewList">View</button>
+            <div id="completeList" class="hide"></div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
+ <script type="text/javascript">
+ // Add your javascript here
+(function(document) {
+    let dom = {}
+    function init() {
+        document.getElementById("numberInput").addEventListener("change", handleChange);
+        dom.msg = document.getElementById("message");
+        dom.alreadyExists = document.getElementById("alreadyExists");
+        dom.alreadyExistsSpan = document.getElementById("alreadyExistsSpan");
+        dom.addedInList = document.getElementById("addedInList");
+        dom.addedInListSpan = document.getElementById("addedInListSpan");
+        dom.viewList = document.getElementById("viewList");
+        dom.completeList = document.getElementById("completeList");
+        dom.viewList.addEventListener("click", handleClick);
+    }
+    let store = [];
+    function handleChange(event) {
+        [dom.msg, dom.alreadyExists, dom.addedInList, dom.completeList]
+        .forEach(item => item.classList.add("hide"));
+        let value = event.target.value;
+        if (value == "") {
+            return false;
+        }
+        let inputArr = parseInput(value);
+        let uniqueArr = [...new Set([...inputArr])];
+        let insertionResult = addIntoStore(uniqueArr,store);
+        store = insertionResult[0];
+        // already Exists
+        if (insertionResult[1].length) {
+            dom.alreadyExistsSpan.innerText = insertionResult[1].join(",");
+            [dom.alreadyExistsSpan, dom.alreadyExists, dom.msg]
+            .forEach(item => item.classList.remove("hide"));
+        }
+        // added in list
+        if (insertionResult[2].length) {
+            dom.addedInListSpan.innerText = insertionResult[2].join(",");
+            [dom.addedInListSpan, dom.addedInList, dom.msg]
+            .forEach(item => item.classList.remove("hide"));
+        }
+        dom.completeList.innerText = store.join(",");
+    } 
+    function handleClick() {
+        dom.completeList.classList.remove("hide");
+    }
+    function parseInput(input) {
+        let inputArr = input.split(",");
+        let arr = [];
+        inputArr.forEach((item, index) => {
+            if (item.includes("-")) {
+                let range = item.split("-");
+                range = range.map(item => parseInt(item));
+                if (!isNaN(range[0]) && !isNaN(range[1])) {
+                    for (let i = range[0]; i <= range[1]; i++) {
+                        arr.push(i);
+                    }
+                }
+            } else  {
+                let intItem = parseInt(item);
+                if (!isNaN(intItem)) {
+                    arr.push(intItem);
+                }
+            }
+        });
+        return arr;
+    }
+    function addIntoStore(arr, store) {
+        let diff = []; let added = [];
+        arr.forEach(item => {
+            if (store.indexOf(item) !== -1) {
+                diff.push(item);
+            } else {
+                added.push(item);
+            }
+        });
+        store.push(...added);
+        return [store, diff, added]
+    }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        init()
+    })
+}(document))
+
+
+
+ </script>
