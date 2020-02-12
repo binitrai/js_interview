@@ -221,8 +221,10 @@ function parseInput(str) {
 
 assert.deepEqual(parseInput("1"), [1]); 
 assert.deepEqual(parseInput("1,2"), [1,2]); 
-assert.deepEqual(parseInput("1-5"), [1,2,3,4,5]); 
-assert.deepEqual(parseInput("1-3,5-10"), [1,2,5,6,7,8,9,10]); 
+assert.deepEqual(parseInput("1-5"), [1,2,3,4,5]);
+assert.deepEqual(parseInput("5-1"), [1,2,3,4,5]);
+assert.deepEqual(parseInput("3-1,5-10,20"), [1,2,3,5,6,7,8,9,10,20]); 
+assert.deepEqual(parseInput("-5-1"), [-5,-4,-3,-2,-1,0,1]);
 
 console.log("---All test cases passed---");
 
