@@ -1,4 +1,3 @@
-import { worker } from "cluster";
 
 let input = 
 
@@ -16,7 +15,6 @@ alcoholic, 30`
 
 
 
-https://hackerearth.com/challenges/test/assessment-developer-feb-5-2020/
 
 function main(input) {
     let breakPoint = input.indexOf("-");
